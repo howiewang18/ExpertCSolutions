@@ -47,7 +47,7 @@ void get_token(void) {
   if (isalnum(*p)) {
     while (isalnum(*++p = getchar()))
       ;
-	ungetc(*p, stdin);
+    ungetc(*p, stdin);
     *p = '\0';
     this.type = classify_string();
     return;
@@ -90,7 +90,7 @@ void deal_with_function_args() {
     get_token();
   }
   get_token();
-  printf("function returing ");
+  printf("function returning ");
 }
 
 void deal_with_pointers() {
@@ -102,12 +102,12 @@ void deal_with_pointers() {
 void deal_with_declarator() {
   /* Deal with possible array/function following the identifier*/
   switch (this.type) {
-  	case '[':
-    	deal_with_arrays();
-   		break;
- 	case '(':
-    	deal_with_function_args();
-  	default:;
+  case '[':
+    deal_with_arrays();
+    break;
+  case '(':
+    deal_with_function_args();
+  default:;
   }
   deal_with_pointers();
   /* Process tokens that we stacked while reading to the identifier. */

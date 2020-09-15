@@ -86,7 +86,16 @@ void deal_with_arrays() {
 }
 
 void deal_with_function_args() {
-  while (this.type != ')') {
+  int level = 0;
+  while (1) {
+    if (this.type == ')') {
+      if (level == 1) {
+        break;
+      }
+      level -= 1;
+    } else if (this.type == '(') {
+      level += 1;
+    }
     get_token();
   }
   get_token();
@@ -102,12 +111,13 @@ void deal_with_pointers() {
 void deal_with_declarator() {
   /* Deal with possible array/function following the identifier*/
   switch (this.type) {
-  case '[':
-    deal_with_arrays();
-    break;
-  case '(':
-    deal_with_function_args();
-  default:;
+    case '[':
+      deal_with_arrays();
+      break;
+    case '(':
+      deal_with_function_args();
+      break;
+    default:;
   }
   deal_with_pointers();
   /* Process tokens that we stacked while reading to the identifier. */

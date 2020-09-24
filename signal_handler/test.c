@@ -7,6 +7,13 @@ jmp_buf buf;
 
 void sigsegv_handler(int signal) {
   if (signal == SIGSEGV) {
+    /*
+          Note calling printf here is a bad practice.
+          It is not safe to call all functions, such as printf, from within a
+       signal handler. A useful technique is to use a signal handler to set a
+       flag and then check that flag from the main program and print a message
+       if required.
+          */
     printf("signal SEGSEGV raised\n");
     longjmp(buf, 2);
   }
